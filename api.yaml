@@ -1,0 +1,312 @@
+openapi: 3.0.0
+info:
+  title: API
+  description: Optional multiline or single-line description
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000/
+    description: Local server
+
+paths:
+  /loginOrSignup:
+    post:
+      tags:
+        - User API
+      summary: Send OTP for login or signup
+      operationId: loginOrSignupUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobileNumber:
+                  type: string
+
+      responses:
+        "200":
+          description: Verification code sent successfully
+        "500":
+          description: Internal server error
+  /verify:
+    post:
+      tags:
+        - User API
+      summary: Verify user with OTP
+      operationId: verifyUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobileNumber:
+                  type: string
+
+                verificationCode:
+                  type: string
+
+      responses:
+        "200":
+          description: User verified successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Name:
+                    type: string
+                  referralCode:
+                    type: string
+                  token:
+                    type: string
+                example:
+                  Name: "John Doe"
+                  referralCode: "AB12CD34"
+                  token: "your-jwt-token-here"
+        "400":
+          description: Invalid OTP
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Invalid OTP"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Internal server error"
+
+  /updateDetails:
+    put:
+      tags:
+        - User API
+      summary: Update user details
+      operationId: updateDetailsUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Name:
+                  type: string
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        "200":
+          description: User details updated successfully
+
+        "401":
+          description: Unauthorized
+
+        "404":
+          description: User not found
+
+        "500":
+          description: Internal server error
+
+  /Bookings:
+    post:
+      tags:
+        - User API
+      summary: Craete user bookings details
+      operationId: BookingUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                # guideId:
+                #   type: string
+
+                # locationId:
+                #   type: string
+                # bookingType:
+                #   type: string
+                # bookingDates:
+                #   type: string
+                status:
+                  type: string
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        "201":
+          description: Booking Created Successfully!
+
+        "404":
+          description: Error creating booking
+
+        "500":
+          description: An error occurred while creating the booking.
+
+  /Cancel:
+    post:
+      tags:
+        - User API
+      summary: Cancel user bookings details
+      operationId: CancelBookingUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bookingId:
+                  type: string
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        "200":
+          description: Successful cancellation.
+
+        "401":
+          description: Unauthorized.
+
+        "403":
+          description: An error message indicating access is forbidden.
+        "404":
+          description: An error message indicating that the booking was not found.
+
+  /guide/loginOrSignup:
+    post:
+      tags:
+        - Guide API
+      summary: Send OTP for login or signup
+      operationId: loginOrSignupGuide
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobileNumber:
+                  type: string
+
+      responses:
+        "200":
+          description: Verification code sent successfully
+        "500":
+          description: Internal server error
+  /guide/verify:
+    post:
+      tags:
+        - Guide API
+      summary: Verify guide with OTP
+      operationId: verifyGuide
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobileNumber:
+                  type: string
+
+                verificationCode:
+                  type: string
+
+      responses:
+        "200":
+          description: Guide verified successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Name:
+                    type: string
+                  referralCode:
+                    type: string
+                  token:
+                    type: string
+                example:
+                  Name: "John Doe"
+                  referralCode: "AB12CD34"
+                  token: "your-jwt-token-here"
+        "400":
+          description: Invalid OTP
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Invalid OTP"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Internal server error"
+
+  /guide/updateDetails:
+    put:
+      tags:
+        - Guide API
+      summary: Update guide details
+      operationId: updateDetailsGuide
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Name:
+                  type: string
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        "200":
+          description: Guide details updated successfully
+
+        "401":
+          description: Unauthorized
+
+        "404":
+          description: Guide not found
+
+        "500":
+          description: Internal server error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
