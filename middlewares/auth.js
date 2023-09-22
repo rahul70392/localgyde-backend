@@ -8,7 +8,7 @@ function isAuth(req, res, next) {
   }
 
   try {
-    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.user = decodedToken._id;
     // req.guide = decodedToken._id;
     next();
