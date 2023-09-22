@@ -78,7 +78,7 @@ function generateJWT(guideId) {
     {
       _id: guideId,
     },
-    process.env.SECRET_KEY,
+    process.env.JWT_SECRET_KEY,
     { expiresIn: "7d" }
   );
   return token;

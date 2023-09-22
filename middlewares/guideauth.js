@@ -8,7 +8,7 @@ function guideAuth(req, res, next) {
   }
 
   try {
-    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
     req.guide = decodedToken._id;
     next();

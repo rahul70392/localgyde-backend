@@ -19,7 +19,7 @@ app.use("/", guideRoutes);
 app.use("/api-docs", swaggerServe, swaggerSetup);
 
 mongoose
-  .connect(process.env.DATABASE_URI, {
+  .connect(process.env.MONGO_DATABASE_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
