@@ -52,6 +52,28 @@ const guideSchema = new mongoose.Schema({
     required: false,
   },
   kycVerified: Boolean,
+  address: {
+    completeAddress: {
+      type: String,
+    },
+    pinCode: {
+      type: Number,
+    },
+    state: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+  },
+  geolocation: {
+    latitude: {
+      type: Number,
+    },
+    longitude: {
+      type: Number,
+    },
+  },
 });
 
 const Guide = mongoose.model("Guide", guideSchema);

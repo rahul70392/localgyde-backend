@@ -42,9 +42,30 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: false,
   },
+  address: {
+    completeAddress: {
+      type: String,
+    },
+    pinCode: {
+      type: Number,
+    },
+    state: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+  },
+  geolocation: {
+    latitude: {
+      type: Number,
+    },
+    longitude: {
+      type: Number,
+    },
+  },
 });
 // userAddress
-// loaction:cordinate
 
 const User = mongoose.model("User", userSchema);
 
